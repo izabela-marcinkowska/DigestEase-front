@@ -22,7 +22,13 @@ function AddLog() {
   const [foodItems, setFoodItems] = useState<string[]>([]); // State to hold the list of food items
   const [currentFoodItem, setCurrentFoodItem] = useState(""); // State to hold the current input value
 
-  const { handleSubmit, register, control, reset } = useForm<Log>({
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<Log>({
     defaultValues: {
       alcohol: false,
       pain: false,
@@ -44,7 +50,7 @@ function AddLog() {
       ...data,
       foodInput: foodItems,
     };
-    console.log(finalData);
+    console.log("Submitting data:", finalData);
 
     try {
       const response = await fetch("http://localhost:3000/add-log", {
@@ -54,13 +60,26 @@ function AddLog() {
         },
         body: JSON.stringify(finalData),
       });
+
+      console.log("Response status:", response.status); // Log the response status
+
       if (!response.ok) {
-        throw new Error();
+        throw new Error("Response not ok");
       }
-      console.log("stringified data:", JSON.stringify(finalData));
-      reset();
-    } catch {
-      console.error(Error);
+
+      reset({
+        // Reset form fields to default values
+        alcohol: false,
+        pain: false,
+        nausea: false,
+        stress: 1,
+        foodInput: [],
+      });
+      setFoodItems([]); // Clear the food items list
+
+      console.log("Form and food items reset after submission");
+    } catch (error) {
+      console.error("Submission error:", error);
     }
   };
 
@@ -104,25 +123,34 @@ function AddLog() {
           <Controller
             control={control}
             name="date"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <DatePicker
-                className="select select-bordered w-full max-w-xs"
-                placeholderText="Select date"
-                onChange={(date) =>
-                  onChange(date ? format(date, "yyyy-MM-dd") : "")
-                }
-                onBlur={onBlur}
-                selected={value ? parseISO(value) : null}
-                dateFormat="yyyy-MM-dd"
-              />
+            rules={{ required: "Date is required" }} // Add validation rules here
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <>
+                <DatePicker
+                  className="select select-bordered w-full max-w-xs"
+                  placeholderText="Select date"
+                  onChange={(date) =>
+                    onChange(date ? format(date, "yyyy-MM-dd") : "")
+                  }
+                  onBlur={onBlur}
+                  selected={value ? parseISO(value) : null}
+                  dateFormat="yyyy-MM-dd"
+                />
+                {error && <p className="text-red-500">{error.message}</p>}{" "}
+                {/* Display error message */}
+              </>
             )}
           />
           <div className="flex flex-col">
             <span className="label-text">Bowel Movements:</span>
             <select
-              {...register("bowelMovements")}
+              {...register("bowelMovements", { required: true })}
               className="select select-bordered w-full max-w-xs"
             >
+              {errors.bowelMovements && "Bowel movement is required"}
               <option disabled value="">
                 Bowel Movements:
               </option>
