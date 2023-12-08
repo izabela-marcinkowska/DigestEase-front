@@ -57,9 +57,11 @@ function Logs() {
           <PlusCircle size={34} />
         </Link>
       </div>
-      {logs.map((log: Log) => (
-        <Log key={log.id} log={log} />
-      ))}
+      <div className="ml-2 mr-2">
+        {logs.map((log: Log) => (
+          <Log key={log.id} log={log} />
+        ))}
+      </div>
     </div>
   );
 }

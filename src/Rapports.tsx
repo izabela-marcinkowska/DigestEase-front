@@ -65,9 +65,11 @@ function Rapports() {
           <PlusCircle size={34} />
         </button>
       </div>
-      {rapports.map((rapport: Rapport) => (
-        <Rapport key={rapport.id} rapport={rapport} />
-      ))}
+      <div className="ml-2 mr-2">
+        {rapports.map((rapport: Rapport) => (
+          <Rapport key={rapport.id} rapport={rapport} />
+        ))}
+      </div>
     </div>
   );
 }
