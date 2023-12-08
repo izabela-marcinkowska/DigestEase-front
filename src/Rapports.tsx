@@ -11,7 +11,7 @@ export type Rapport = {
 };
 
 function Rapports() {
-  const [rapports, setRapports] = useState([]);
+  const [rapports, setRapports] = useState<Rapport[]>([]);
   useEffect(() => {
     async function getRapports() {
       const response = await fetch("http://localhost:3000/rapports");
@@ -19,7 +19,22 @@ function Rapports() {
       setRapports(data);
     }
     getRapports();
-  }, []);
+  }, [rapports]);
+
+  const createRapport = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/openai");
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+      const newRapport = await response.json();
+
+      // Update the state with the new rapport
+      setRapports((prevRapports) => [...prevRapports, newRapport]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <div>
@@ -46,10 +61,12 @@ function Rapports() {
       </div>
       <div className="flex justify-between m-10">
         <h1 className="text-3xl">Rapports</h1>
-        <PlusCircle size={34} />
+        <button onClick={createRapport}>
+          <PlusCircle size={34} />
+        </button>
       </div>
-      {rapports.map((rapports: Rapport) => (
-        <Rapport key={rapports.id} rapport={rapports} />
+      {rapports.map((rapport: Rapport) => (
+        <Rapport key={rapport.id} rapport={rapport} />
       ))}
     </div>
   );

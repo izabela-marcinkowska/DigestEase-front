@@ -6,26 +6,31 @@ type RapportProps = {
 };
 
 function Rapport({ rapport }: RapportProps) {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleRadioChange = () => {
-    setIsChecked((prevChecked) => !prevChecked);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
   };
+
   return (
-    <div className="collapse collapse-arrow bg-base-200 mb-2">
-      <input
-        type="radio"
-        name="my-accordion-2"
-        checked={isChecked}
-        onChange={handleRadioChange}
-      />
-      <div className="collapse-title text-xl font-medium">
+    <div
+      className={`collapse collapse-arrow bg-base-200 mb-2 ${
+        isOpen ? "collapse-open" : ""
+      }`}
+    >
+      <div
+        className="collapse-title text-xl font-medium cursor-pointer"
+        onClick={toggleOpen}
+      >
         <p>{rapport.date}</p>
       </div>
-      <div className="collapse-content">
-        <div className="log-entry">
-          <div>{rapport.result}</div>
+      {isOpen && (
+        <div className="collapse-content">
+          <div className="log-entry">
+            <div>{rapport.result}</div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
