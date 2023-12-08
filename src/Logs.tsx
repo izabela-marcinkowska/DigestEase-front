@@ -53,7 +53,9 @@ function Logs() {
       </div>
       <div className="flex justify-between m-10">
         <h1 className="text-3xl">Logs</h1>
-        <PlusCircle size={34} />
+        <Link to={"/add-log"}>
+          <PlusCircle size={34} />
+        </Link>
       </div>
       {logs.map((log: Log) => (
         <Log key={log.id} log={log} />
