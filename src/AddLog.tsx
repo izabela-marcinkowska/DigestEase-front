@@ -21,6 +21,7 @@ type Log = {
 function AddLog() {
   const [foodItems, setFoodItems] = useState<string[]>([]); // State to hold the list of food items
   const [currentFoodItem, setCurrentFoodItem] = useState(""); // State to hold the current input value
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   const {
     handleSubmit,
@@ -78,8 +79,11 @@ function AddLog() {
       setFoodItems([]); // Clear the food items list
 
       console.log("Form and food items reset after submission");
+      setSubmissionSuccess(true); // Set submission success state to true
+      setTimeout(() => setSubmissionSuccess(false), 5000); // Optionally, hide the message after 5 seconds
     } catch (error) {
       console.error("Submission error:", error);
+      setSubmissionSuccess(false);
     }
   };
 
@@ -248,6 +252,9 @@ function AddLog() {
             </div>
           </div>
           <input type="submit" className="btn btn-primary" />
+          {submissionSuccess && (
+            <div className="text-green-500 mt-2">Log added successfully!</div>
+          )}
         </form>
       </div>
     </div>
