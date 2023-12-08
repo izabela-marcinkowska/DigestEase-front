@@ -22,7 +22,7 @@ function AddLog() {
   const [foodItems, setFoodItems] = useState<string[]>([]); // State to hold the list of food items
   const [currentFoodItem, setCurrentFoodItem] = useState(""); // State to hold the current input value
 
-  const { handleSubmit, register, control } = useForm<Log>({
+  const { handleSubmit, register, control, reset } = useForm<Log>({
     defaultValues: {
       alcohol: false,
       pain: false,
@@ -39,15 +39,29 @@ function AddLog() {
     }
   };
 
-  const onSubmit: SubmitHandler<Log> = (data: Log) => {
-    // const response = await fetch("http://localhost:3000/add-log", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": 'application/json',
-    //   },
-    //   body: JSON.stringify(data)
-    // });
-    // }
+  const onSubmit: SubmitHandler<Log> = async (data: Log) => {
+    const finalData = {
+      ...data,
+      foodInput: foodItems,
+    };
+    console.log(finalData);
+
+    try {
+      const response = await fetch("http://localhost:3000/add-log", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(finalData),
+      });
+      if (!response.ok) {
+        throw new Error();
+      }
+      console.log("stringified data:", JSON.stringify(finalData));
+      reset();
+    } catch {
+      console.error(Error);
+    }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -89,14 +103,14 @@ function AddLog() {
         <Controller
           control={control}
           name="date"
-          render={({ field }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <DatePicker
-              {...register("date")}
               placeholderText="Select date"
               onChange={(date) =>
-                field.onChange(date ? format(date, "yyyy-MM-dd") : "")
+                onChange(date ? format(date, "yyyy-MM-dd") : "")
               }
-              selected={field.value ? parseISO(field.value) : null}
+              onBlur={onBlur}
+              selected={value ? parseISO(value) : null}
               dateFormat="yyyy-MM-dd"
             />
           )}
