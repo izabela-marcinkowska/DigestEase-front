@@ -99,113 +99,129 @@ function AddLog() {
           <XCircle size={34} />
         </Link>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <Controller
-          control={control}
-          name="date"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <DatePicker
-              placeholderText="Select date"
-              onChange={(date) =>
-                onChange(date ? format(date, "yyyy-MM-dd") : "")
-              }
-              onBlur={onBlur}
-              selected={value ? parseISO(value) : null}
-              dateFormat="yyyy-MM-dd"
-            />
-          )}
-        />
-        <div className="flex flex-col">
-          <span className="label-text">Bowel Movements:</span>
-          <select
-            {...register("bowelMovements")}
-            className="select select-bordered w-full max-w-xs"
-          >
-            <option disabled value="">
-              Bowel Movements:
-            </option>
-            <option value="Bloated">Bloated</option>
-            <option value="Normal">Normal</option>
-            <option value="Diarrhea">Diarrhea</option>
-          </select>
-        </div>
-        <div className="flex flex-col">
-          <div className="form-control w-52">
-            <label className="cursor-pointer label">
-              <span className="label-text">Alcohol</span>
-              <input
-                {...register("alcohol")}
-                type="checkbox"
-                className="toggle toggle-primary"
+      <div className="flex justify-center h-screen">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          <Controller
+            control={control}
+            name="date"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <DatePicker
+                className="select select-bordered w-full max-w-xs"
+                placeholderText="Select date"
+                onChange={(date) =>
+                  onChange(date ? format(date, "yyyy-MM-dd") : "")
+                }
+                onBlur={onBlur}
+                selected={value ? parseISO(value) : null}
+                dateFormat="yyyy-MM-dd"
               />
-            </label>
-          </div>
-          <div className="form-control w-52">
-            <label className="cursor-pointer label">
-              <span className="label-text">Pain</span>
-              <input
-                {...register("pain")}
-                type="checkbox"
-                className="toggle toggle-primary"
-              />
-            </label>
-          </div>
-          <div className="form-control w-52">
-            <label className="cursor-pointer label">
-              <span className="label-text">Nausea</span>
-              <input
-                {...register("nausea")}
-                type="checkbox"
-                className="toggle toggle-primary"
-              />
-            </label>
-          </div>
-        </div>
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Stress Level:</span>
-          </div>
-          <select {...register("stress")} className="select select-bordered">
-            <option disabled>Stress level:</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </select>
-        </label>
-        <div className="form-control">
-          <div className="label">
-            <span className="label-text">What did you eat today?</span>
-          </div>
-          <div className="flex gap-2">
-            <input
-              value={currentFoodItem}
-              onChange={(e) => setCurrentFoodItem(e.target.value)}
-              onKeyDown={handleKeyPress}
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered"
-            />
-            <button
-              type="button"
-              onClick={handleAddFoodItem}
-              className="btn btn-primary"
+            )}
+          />
+          <div className="flex flex-col">
+            <span className="label-text">Bowel Movements:</span>
+            <select
+              {...register("bowelMovements")}
+              className="select select-bordered w-full max-w-xs"
             >
-              Add
-            </button>
+              <option disabled value="">
+                Bowel Movements:
+              </option>
+              <option value="Bloated">Bloated</option>
+              <option value="Normal">Normal</option>
+              <option value="Diarrhea">Diarrhea</option>
+            </select>
           </div>
-          {foodItems.map((item, index) => (
-            <div key={index}>{item}</div>
-          ))}
-        </div>
-        <input type="submit" className="btn btn-primary" />
-      </form>
+          <div className="flex flex-col">
+            <div className="form-control w-52">
+              <label className="cursor-pointer label">
+                <span className="label-text">Alcohol</span>
+                <input
+                  {...register("alcohol")}
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                />
+              </label>
+            </div>
+            <div className="form-control w-52">
+              <label className="cursor-pointer label">
+                <span className="label-text">Pain</span>
+                <input
+                  {...register("pain")}
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                />
+              </label>
+            </div>
+            <div className="form-control w-52">
+              <label className="cursor-pointer label">
+                <span className="label-text">Nausea</span>
+                <input
+                  {...register("nausea")}
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                />
+              </label>
+            </div>
+          </div>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">Stress Level:</span>
+            </div>
+            <select {...register("stress")} className="select select-bordered">
+              <option disabled>Stress level:</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </label>
+          <div className="form-control">
+            <div className="label">
+              <span className="label-text">What did you eat today?</span>
+            </div>
+            <div className="flex gap-2">
+              <input
+                value={currentFoodItem}
+                onChange={(e) => setCurrentFoodItem(e.target.value)}
+                onKeyDown={handleKeyPress}
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered"
+              />
+              <button
+                type="button"
+                onClick={handleAddFoodItem}
+                className="btn btn-primary"
+              >
+                Add
+              </button>
+            </div>
+            <div className="form-control">
+              <div className="flex gap-2 mb-4">
+                {/* Existing input and button elements */}
+              </div>
+              <div className="space-y-2">
+                {" "}
+                {/* Vertical spacing between items */}
+                {foodItems.map((item, index) => (
+                  <div key={index} className="card bg-accent shadow-xl p-4">
+                    {" "}
+                    {/* Card style for each item */}
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <input type="submit" className="btn btn-primary" />
+        </form>
+      </div>
     </div>
   );
 }

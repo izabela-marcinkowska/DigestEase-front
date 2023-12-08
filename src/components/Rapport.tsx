@@ -25,7 +25,7 @@ function Rapport({ rapport }: RapportProps) {
         <p>{rapport.date}</p>
       </div>
       {isOpen && (
-        <div className="collapse-content">
+        <div className="collapse-content ml-3 mr-3">
           <div className="log-entry">
             <div>{rapport.result}</div>
           </div>
