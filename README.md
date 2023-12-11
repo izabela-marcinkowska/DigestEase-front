@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+# DigestEase
+## Overview
+DigestEase is a specialized health app designed for individuals with Irritable Bowel Syndrome (IBS) and related digestive conditions. Our goal is to empower users to track their dietary habits, bowel movements, and symptoms to better manage their digestive health.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+#### Food Diary: 
+Log every meal and snack to identify potential IBS triggers.
+#### Bowel Movement Tracker: 
+Keep a record of bowel movement types to notice patterns over time.
+#### Alcohol and Medication Logs: 
+Input alcohol consumption and medication to see their effects on IBS.
+#### Pain and Stress Journal: 
+Rate your daily pain and stress to correlate emotional well-being with IBS symptoms.
+#### Analysis Tool: 
+Our AI-powered engine analyzes your entries to provide insights and suggestions based on IBS dietary recommendations.
 
-Currently, two official plugins are available:
+## Who We Are
+Founded by Bella, an IBS patient herself, this app is the result of a personal journey through the challenges of managing IBS. Our mission is to make IBS management more intuitive and less time-consuming for everyone.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Disclaimer
+The IBS Tracker App is a health assistant tool and not a substitute for professional medical advice. Always consult with a healthcare provider for medical issues.
